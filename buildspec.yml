@@ -1,0 +1,22 @@
+phases:
+  install:
+    commands:
+      - echo Installing Maven...
+      - apt-get update
+      - apt-get install -y maven
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Maven project...
+      - mvn clean install
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - target/*.jar
+  discard-paths: yes
