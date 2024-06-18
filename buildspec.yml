@@ -8,17 +8,17 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - mvn clean install
+      - sudo mvn clean install
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Maven project...
-      - mvn package
-      - mv target/*.jar app.jar
+      - sudo mvn package
+      - sudo mv target/*.jar app.jar
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - mv app.jar target/
-      - mvn clean
+      - sudo mv app.jar target/
+      - sudo mvn clean
 
