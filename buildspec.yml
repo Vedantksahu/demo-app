@@ -8,6 +8,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
+      - sudo apt-ger update
       - sudo mvn clean install
   build:
     commands:
