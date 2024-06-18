@@ -4,22 +4,22 @@ phases:
   install:
     runtime-versions:
       java: corretto11
+    commands:
+      - echo Installing system dependencies...
+      - sudo apt-get update
+      - sudo apt-get install -y maven
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws --version
-      - sudo apt-get update
-      - sudo mvn clean install
+      - echo Preparing for build...
+      - mvn clean install || { echo "Maven build failed"; exit 1; }
   build:
     commands:
-      - echo Build started on `date`
       - echo Building the Maven project...
-      - sudo mvn package
-      - sudo mv target/*.jar app.jar
+      - mvn package
+      - mv target/*.jar app.jar
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker image...
-      - sudo mv app.jar target/
-      - sudo mvn clean
+      - echo Deploying...
+
 
