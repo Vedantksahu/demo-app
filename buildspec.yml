@@ -1,23 +1,24 @@
 version: 0.2
+
 phases:
   install:
-    commands:
-      - echo Installing Maven...
-      - apt-get update
-      - apt-get install -y maven
+    runtime-versions:
+      java: corretto11
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 101748561700.dkr.ecr.ap-south-1.amazonaws.com/demo-app
+      - aws --version
+      - mvn clean install
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Maven project...
-      - mvn clean install
+      - mvn package
+      - mv target/*.jar app.jar
   post_build:
     commands:
       - echo Build completed on `date`
-artifacts:
-  files:
-    - target/*.jar
-  discard-paths: yes
+      - echo Pushing the Docker image...
+      - mv app.jar target/
+      - mvn clean
+
