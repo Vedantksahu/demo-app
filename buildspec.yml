@@ -11,7 +11,7 @@ phases:
   pre_build:
     commands:
       - echo Preparing for build...
-      - mvn clean install -DskipTests=true -e -X || { echo "Maven build failed"; exit 1; }
+      - mvn clean 
   build:
     commands:
       - echo Building the Maven project...
