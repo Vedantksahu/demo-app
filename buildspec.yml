@@ -2,12 +2,8 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      java: corretto11
     commands:
       - echo Installing system dependencies...
-      - sudo apt-get update
-      - sudo apt-get install -y maven
   pre_build:
     commands:
       - echo Preparing for build...
@@ -15,9 +11,6 @@ phases:
   build:
     commands:
       - echo Building the Maven project...
-      - mvn clean install
-      - mvn package -DskipTests=true
-      - mv target/*.jar app.jar
   post_build:
     commands:
       - echo Build completed on `date`
