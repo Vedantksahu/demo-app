@@ -8,6 +8,7 @@ phases:
     commands:
       - echo Preparing for build...
       - mvn clean 
+      - mvn clean install
   build:
     commands:
       - echo Building the Maven project...
