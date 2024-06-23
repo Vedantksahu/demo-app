@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - echo Preparing for build...
-      - mvn clean 
+      - mvn clean
       - mvn clean install
   build:
     commands:
@@ -16,4 +16,9 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Deploying...
+
+artifacts:
+  files:
+    - '**/*'
+  name: scenery_app
 
