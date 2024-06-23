@@ -4,15 +4,23 @@ phases:
   install:
     commands:
       - echo Installing system dependencies...
+      - apt-get update -y
+      - apt-get install -y maven
   pre_build:
     commands:
       - echo Preparing for build...
-      - mvn clean 
-      - mvn clean install
+      - mvn --version
+      - mvn clean
   build:
     commands:
       - echo Building the Maven project...
+      - mvn package -DskipTests
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Deploying...
+      - echo Deploying to S3...
+      - aws s3 cp target/your-artifact-name.war s3://my-demo-storage-bucket24 /path/to/deploy/
+artifacts:
+  files:
+    - target/your-artifact-name.war
+
