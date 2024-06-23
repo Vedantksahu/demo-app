@@ -19,7 +19,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Deploying to S3...
-      - aws s3 cp target/your-artifact-name.war s3://my-demo-storage-bucket24 /path/to/deploy/
+      - aws s3 cp target/your-artifact-name.war s3://my-demo-storage-bucket24/path/to/deploy/
 artifacts:
   files:
     - target/your-artifact-name.war
